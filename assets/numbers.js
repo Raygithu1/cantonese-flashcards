@@ -337,7 +337,7 @@
     jyutpingEl.textContent = item.jyutping;
     soundsEl.textContent = item.sounds;
     sayHint.textContent = "tap to hear " + item.char;
-    sayBtn.setAttribute("aria-label", "Say " + item.char + " in Cantonese, " + item.jyutping);
+    sayBtn.setAttribute("aria-label", "Say it — tap to hear " + item.char + " — " + item.jyutping);
     sayBtn.title = item.hint;
 
     tile.style.setProperty("--tile", THEMES[item.n % THEMES.length]);

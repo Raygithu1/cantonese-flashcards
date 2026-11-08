@@ -8,9 +8,10 @@
   --paper: #fffdf8;
   --ink: #2d2a32;
   --ink-soft: #5d5866;
-  --muted: #8b8494;
+  --muted: #6a6373;
   --coral: #ff6b5b;
   --coral-dark: #d94b3d;
+  --coral-ink: #b33429;
   --sun: #ffc93c;
   --sun-dark: #e0a800;
   --teal: #28b5a6;
@@ -320,11 +321,11 @@ p {
 
 .btn--primary {
   background: var(--coral);
-  color: #fff;
+  color: var(--ink);
 }
 
 .btn--primary:hover {
-  background: #ff7c6d;
+  background: #ff5a4a;
 }
 
 .btn--xl {
@@ -338,7 +339,7 @@ p {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.45);
 }
 
 .btn--ghost {
@@ -532,7 +533,7 @@ p {
   border: 2.5px solid var(--ink);
   border-radius: 999px;
   background: var(--coral);
-  color: #fff;
+  color: var(--ink);
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 15px;
@@ -772,7 +773,7 @@ p {
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 15px;
-  color: var(--coral-dark);
+  color: var(--coral-ink);
 }
 
 .deck-card.is-soon .deck-card__cta {
@@ -925,7 +926,7 @@ p {
   border: 2.5px solid var(--ink);
   border-radius: 999px;
   background: var(--coral);
-  color: #fff;
+  color: var(--ink);
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 15px;
@@ -1378,7 +1379,7 @@ p {
 }
 
 .meta--sounds .meta__value {
-  color: var(--coral-dark);
+  color: var(--coral-ink);
 }
 
 .say-btn {
@@ -1394,14 +1395,14 @@ p {
   border: 3px solid var(--ink);
   border-radius: 24px;
   background: var(--coral);
-  color: #fff;
+  color: var(--ink);
   box-shadow: 0 7px 0 var(--coral-dark);
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
 .say-btn:hover {
-  background: #ff7d6f;
+  background: #ff5a4a;
   transform: translateY(-1px);
   box-shadow: 0 8px 0 var(--coral-dark);
 }
@@ -1418,7 +1419,7 @@ p {
   height: 48px;
   flex: 0 0 auto;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.45);
 }
 
 .say-btn__text {
@@ -1437,7 +1438,7 @@ p {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--ink);
 }
 
 .say-btn__wave {
@@ -1452,7 +1453,7 @@ p {
   width: 4px;
   height: 8px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(45, 42, 50, 0.5);
 }
 
 .say-btn.is-speaking .say-btn__wave i {
@@ -1460,7 +1461,7 @@ p {
 }
 
 .say-btn.is-speaking {
-  background: #ff7d6f;
+  background: var(--sun);
 }
 
 .say-btn.is-speaking .say-btn__wave i:nth-child(2) { animation-delay: 0.1s; }
@@ -1530,26 +1531,43 @@ p {
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
   padding: 0;
   border: none;
   border-radius: 999px;
-  background: rgba(45, 42, 50, 0.17);
-  transition: width 0.22s ease, background 0.22s ease, transform 0.22s ease;
+  background: transparent;
+  transition: width 0.22s ease, transform 0.22s ease;
+}
+
+.dot::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(45, 42, 50, 0.18);
+  transition: width 0.22s ease, background 0.22s ease;
 }
 
 .dot:hover {
-  background: rgba(45, 42, 50, 0.35);
-  transform: scale(1.2);
+  transform: scale(1.08);
+}
+
+.dot:hover::before {
+  background: rgba(45, 42, 50, 0.4);
 }
 
 .dot.is-active {
-  width: 26px;
-  background: var(--coral);
+  width: 30px;
+  background: transparent;
 }
 
-.dot[aria-current="true"] {
+.dot.is-active::before,
+.dot[aria-current="true"]::before {
+  width: 24px;
   background: var(--coral);
 }
 
@@ -1734,12 +1752,12 @@ kbd {
   }
 
   .dot {
-    width: 8px;
-    height: 8px;
+    width: 24px;
+    height: 24px;
   }
 
   .dot.is-active {
-    width: 20px;
+    width: 28px;
   }
 
   .deck-footnote {
