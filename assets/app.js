@@ -17,7 +17,7 @@
 
   document.querySelectorAll("[data-soon]").forEach(function (card) {
     card.addEventListener("click", function () {
-      showToast(card.getAttribute("data-soon") + " is coming soon — numbers are ready to play!");
+      showToast(card.getAttribute("data-soon") + " is coming soon — try Numbers, Animals or Vehicles!");
     });
   });
 

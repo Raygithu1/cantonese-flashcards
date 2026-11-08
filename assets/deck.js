@@ -1,23 +1,14 @@
-/* Gong Gong 講講 — numbers deck */
+/* Gong Gong 講講 — shared flash-card deck engine */
 (function () {
   "use strict";
 
-  var NUMBERS = [
-    { n: 0, char: "零", jyutping: "ling4", sounds: "ling", english: "zero", hint: "Like “ling” in “bling”." },
-    { n: 1, char: "一", jyutping: "jat1", sounds: "yut", english: "one", hint: "Rhymes with “hut”." },
-    { n: 2, char: "二", jyutping: "ji6", sounds: "yee", english: "two", hint: "Like a happy “yee!”." },
-    { n: 3, char: "三", jyutping: "saam1", sounds: "sahm", english: "three", hint: "Like “psalm” without the l." },
-    { n: 4, char: "四", jyutping: "sei3", sounds: "say", english: "four", hint: "Like the word “say”." },
-    { n: 5, char: "五", jyutping: "ng5", sounds: "mm", english: "five", hint: "A soft nasal “mm”, mouth closed." },
-    { n: 6, char: "六", jyutping: "luk6", sounds: "look", english: "six", hint: "Like “look” with a short oo." },
-    { n: 7, char: "七", jyutping: "cat1", sounds: "chut", english: "seven", hint: "Rhymes with “hut”." },
-    { n: 8, char: "八", jyutping: "baat3", sounds: "baht", english: "eight", hint: "Like “baht”, with a long ah." },
-    { n: 9, char: "九", jyutping: "gau2", sounds: "gow", english: "nine", hint: "Rhymes with “cow”." },
-    { n: 10, char: "十", jyutping: "sap6", sounds: "sahp", english: "ten", hint: "Like “sop” with an ah sound." }
-  ];
+  var deck = window.GONG_GONG_DECK;
+  if (!deck || !deck.items || !deck.items.length) return;
 
-  var THEMES = ["#28b5a6", "#ff6b5b", "#9b7ede", "#3d8fe8", "#e2557f", "#4fae8b"];
+  var ITEMS = deck.items;
+  var THEMES = deck.palette || ["#28b5a6", "#ff6b5b", "#9b7ede", "#3d8fe8", "#e2557f", "#4fae8b"];
   var TOKEN_COLORS = ["#ffd166", "#ff9bc2", "#8ed1fc", "#fff3cf", "#ffffff", "#c7f0e9"];
+  var isCount = deck.kind === "count";
 
   var card = document.getElementById("flashcard");
   var tile = document.getElementById("cardTile");
@@ -49,6 +40,12 @@
 
   if (recording) {
     recording.preload = "auto";
+  }
+
+  function slugOf(item, i) {
+    if (item.slug !== undefined && item.slug !== null) return String(item.slug);
+    if (item.n !== undefined && item.n !== null) return String(item.n);
+    return String(i);
   }
 
   /* ---------- Preferences ---------- */
@@ -167,7 +164,7 @@
   }
 
   function speakWithVoice(voice, hadRecordingError) {
-    var utterance = new SpeechSynthesisUtterance(NUMBERS[index].char);
+    var utterance = new SpeechSynthesisUtterance(ITEMS[index].char);
     if (voice) {
       utterance.voice = voice;
       utterance.lang = voice.lang || "yue-HK";
@@ -216,9 +213,10 @@
       return;
     }
 
-    var item = NUMBERS[index];
+    var item = ITEMS[index];
     var token = ++recordingToken;
     var settled = false;
+    var file = item.audio || slugOf(item, index) + ".m4a";
 
     beginSpeaking();
 
@@ -247,7 +245,7 @@
     try {
       recording.pause();
       recording.currentTime = 0;
-      recording.src = "assets/audio/" + item.n + ".m4a";
+      recording.src = (deck.audioBase || "assets/audio/") + file;
       var attempt = recording.play();
       if (attempt && typeof attempt.catch === "function") {
         attempt.catch(failed);
@@ -280,7 +278,13 @@
 
   function renderArt(item) {
     var html = "";
-    if (item.n === 0) {
+
+    if (item.img) {
+      html =
+        '<span class="picture-frame">' +
+        '<img class="picture-art" src="' + item.img + '" alt="" width="36" height="36" decoding="async">' +
+        "</span>";
+    } else if (item.n === 0) {
       html =
         '<div class="empty-zero">' +
         '<span class="empty-zero__ring" aria-hidden="true"></span>' +
@@ -293,23 +297,38 @@
         html += tokenSvg(color, shape, i);
       }
     }
+
     art.innerHTML = html;
-    card.classList.toggle("is-dense", item.n >= 7);
+    art.classList.toggle("flashcard__art--picture", !!item.img);
+    card.classList.toggle("is-picture", !!item.img);
+    card.classList.toggle("is-dense", isCount && item.n >= 7);
+  }
+
+  function renderBadge(item) {
+    if (deck.emblemImg) {
+      badge.innerHTML = '<img class="flashcard__badge-img" src="' + deck.emblemImg + '" alt="">';
+    } else if (isCount) {
+      badge.textContent = item.n;
+    } else {
+      badge.textContent = String(index + 1);
+    }
   }
 
   function buildDots() {
     var fragment = document.createDocumentFragment();
-    NUMBERS.forEach(function (item, i) {
+    ITEMS.forEach(function (item, i) {
       var dot = document.createElement("button");
       dot.type = "button";
       dot.className = "dot";
-      dot.setAttribute("aria-label", "Go to " + item.char + " (" + item.n + ")");
+      dot.setAttribute("aria-label", "Go to " + item.char + " — " + item.english);
       dot.addEventListener("click", function () {
         goTo(i, true);
       });
       fragment.appendChild(dot);
     });
     dotsEl.appendChild(fragment);
+    dotsEl.classList.toggle("dots--many", ITEMS.length > 8);
+    dotsEl.setAttribute("aria-label", "Choose a " + (deck.noun || "card"));
   }
 
   function updateDots() {
@@ -325,24 +344,28 @@
   }
 
   function render(shouldSpeak) {
-    var item = NUMBERS[index];
+    var item = ITEMS[index];
+    var len = Array.from(item.char).length;
 
     stopAudio();
 
     renderArt(item);
-    badge.textContent = item.n;
+    renderBadge(item);
     bgChar.textContent = item.char;
+    bgChar.setAttribute("data-len", String(len));
     charEl.textContent = item.char;
+    charEl.classList.toggle("is-long", len === 2);
+    charEl.classList.toggle("is-xlong", len >= 3);
     englishEl.textContent = item.english;
     jyutpingEl.textContent = item.jyutping;
     soundsEl.textContent = item.sounds;
     sayHint.textContent = "tap to hear " + item.char;
     sayBtn.setAttribute("aria-label", "Say it — tap to hear " + item.char + " — " + item.jyutping);
-    sayBtn.title = item.hint;
+    sayBtn.title = item.hint || "";
 
-    tile.style.setProperty("--tile", THEMES[item.n % THEMES.length]);
-    progressFill.style.width = ((index + 1) / NUMBERS.length) * 100 + "%";
-    progressLabel.textContent = index + 1 + " / " + NUMBERS.length;
+    tile.style.setProperty("--tile", THEMES[index % THEMES.length]);
+    progressFill.style.width = ((index + 1) / ITEMS.length) * 100 + "%";
+    progressLabel.textContent = index + 1 + " / " + ITEMS.length;
 
     updateDots();
 
@@ -351,7 +374,7 @@
     card.classList.add("is-changing");
 
     try {
-      window.history.replaceState(null, "", "#" + item.n);
+      window.history.replaceState(null, "", "#" + slugOf(item, index));
     } catch (e) {
       /* file:// and some embedded browsers block this */
     }
@@ -360,7 +383,7 @@
   }
 
   function goTo(nextIndex, speak) {
-    index = (nextIndex + NUMBERS.length) % NUMBERS.length;
+    index = (nextIndex + ITEMS.length) % ITEMS.length;
     render(speak);
   }
 
@@ -369,6 +392,9 @@
   sayBtn.addEventListener("click", function () {
     speakCurrent();
   });
+
+  prevBtn.setAttribute("aria-label", "Previous " + (deck.noun || "card"));
+  nextBtn.setAttribute("aria-label", "Next " + (deck.noun || "card"));
 
   prevBtn.addEventListener("click", function () {
     goTo(index - 1, true);
@@ -433,16 +459,19 @@
   paintToggle();
 
   var hash = String(window.location.hash || "").replace("#", "");
-  var start = NUMBERS.findIndex(function (item) {
-    return String(item.n) === hash;
+  var start = ITEMS.findIndex(function (item, i) {
+    return slugOf(item, i) === hash;
   });
+
   if (start === -1) {
     try {
       var params = new URLSearchParams(window.location.search);
       var q = params.get("n");
+      if (q === null) q = params.get("word");
+      if (q === null) q = params.get("item");
       if (q !== null) {
-        start = NUMBERS.findIndex(function (item) {
-          return String(item.n) === q;
+        start = ITEMS.findIndex(function (item, i) {
+          return slugOf(item, i) === q;
         });
       }
     } catch (e) {

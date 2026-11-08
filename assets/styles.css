@@ -638,7 +638,7 @@ p {
 
 .deck-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -677,6 +677,10 @@ p {
 
 .deck-card--animals {
   background: #fff3cf;
+}
+
+.deck-card--vehicles {
+  background: #e3f2ff;
 }
 
 .deck-card--body {
@@ -726,6 +730,11 @@ p {
 
 .deck-card__icon--face {
   font-size: 30px;
+}
+
+.deck-card__icon img {
+  width: 34px;
+  height: 34px;
 }
 
 .pill {
@@ -971,6 +980,15 @@ p {
   line-height: 1.5;
   color: var(--muted);
   text-align: right;
+}
+
+.disclaimer + .disclaimer {
+  margin-top: 8px;
+}
+
+.disclaimer a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .toast {
@@ -1246,6 +1264,55 @@ p {
   height: 45px;
 }
 
+.flashcard__art--picture {
+  width: 100%;
+  max-width: none;
+}
+
+.picture-frame {
+  display: grid;
+  place-items: center;
+  width: clamp(158px, 27vh, 210px);
+  aspect-ratio: 1;
+  padding: 26px;
+  border: 4px solid var(--ink);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 26%, #ffffff, var(--paper) 62%);
+  box-shadow: 6px 9px 0 rgba(45, 42, 50, 0.18);
+  transform: rotate(-2deg);
+  animation: picturePop 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.picture-art {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 0 rgba(45, 42, 50, 0.12));
+  animation: pictureBob 4.5s ease-in-out 0.6s infinite;
+}
+
+@keyframes picturePop {
+  from {
+    opacity: 0;
+    transform: translateY(12px) rotate(-9deg) scale(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-2deg) scale(1);
+  }
+}
+
+@keyframes pictureBob {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-5px) rotate(1.5deg); }
+}
+
+.flashcard__badge-img {
+  width: 32px;
+  height: 32px;
+}
+
 @keyframes tokenPop {
   from {
     opacity: 0;
@@ -1299,6 +1366,14 @@ p {
   user-select: none;
 }
 
+.flashcard__char-bg[data-len="2"] {
+  font-size: 10.5rem;
+}
+
+.flashcard__char-bg[data-len="3"] {
+  font-size: 7.6rem;
+}
+
 .flashcard__spark {
   position: absolute;
   z-index: 1;
@@ -1319,7 +1394,8 @@ p {
   display: flex;
   align-items: baseline;
   justify-content: center;
-  gap: 13px;
+  flex-wrap: wrap;
+  gap: 4px 13px;
   margin-bottom: 8px;
 }
 
@@ -1329,6 +1405,14 @@ p {
   font-weight: 900;
   line-height: 1;
   letter-spacing: 0.02em;
+}
+
+.flashcard__char.is-long {
+  font-size: clamp(2.6rem, 7.4vw, 3.6rem);
+}
+
+.flashcard__char.is-xlong {
+  font-size: clamp(2rem, 5.8vw, 2.9rem);
 }
 
 .flashcard__english {
@@ -1565,6 +1649,14 @@ p {
   background: transparent;
 }
 
+.dots--many .dot {
+  width: 20px;
+}
+
+.dots--many .dot.is-active {
+  width: 26px;
+}
+
 .dot.is-active::before,
 .dot[aria-current="true"]::before {
   width: 24px;
@@ -1703,6 +1795,11 @@ kbd {
     max-width: 330px;
   }
 
+  .picture-frame {
+    width: min(176px, 48vw);
+    padding: 22px;
+  }
+
   .count-item {
     width: 48px;
     height: 48px;
@@ -1771,6 +1868,23 @@ kbd {
 }
 
 @media (max-width: 560px) {
+  .site-header {
+    gap: 10px;
+  }
+
+  .brand__text {
+    display: none;
+  }
+
+  .site-nav {
+    gap: 2px;
+  }
+
+  .nav-link {
+    padding: 8px 10px;
+    font-size: 13.5px;
+  }
+
   .hero__actions {
     align-items: stretch;
   }
@@ -1910,6 +2024,11 @@ kbd {
     padding: 20px 14px;
   }
 
+  .picture-frame {
+    width: 150px;
+    padding: 20px;
+  }
+
   .flashcard__spark {
     display: none;
   }
@@ -1958,6 +2077,11 @@ kbd {
   .flashcard__art {
     gap: 8px;
     max-width: 260px;
+  }
+
+  .picture-frame {
+    width: min(148px, 44vw);
+    padding: 20px;
   }
 
   .count-item {
