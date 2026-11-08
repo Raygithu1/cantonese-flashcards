@@ -10,12 +10,13 @@ Playful Cantonese flash cards for toddlers — big tap targets, friendly type, a
 - **Numbers 零–十** — eleven counting cards with chunky count-along friends.
 - **Animals 動物** — twelve friendly animals, from 貓 (cat) to 象 (elephant).
 - **Vehicles 交通工具** — twelve things that go, including cars, trucks, fire engines and ambulances.
+- **Food 食物** — twelve fruits and vegetables, from 蘋果 (apple) to 薯仔 (potato).
 - Every card includes:
   - a big Chinese character and a cheerful illustration
   - the Jyutping and a “sounds like” hint
   - a large **Say it** button that plays the word in Cantonese
 - Swipe, arrow-key and dot navigation, plus an optional auto-say toggle.
-- Remembers the auto-say preference and supports deep links such as `#3`, `#cat` or `?word=fire-truck`.
+- Remembers the auto-say preference and supports deep links such as `#3`, `#cat` or `?word=strawberry`.
 - No build step, no tracking, no accounts.
 
 ## Audio
@@ -42,20 +43,23 @@ index.html              landing page
 numbers.html            numbers deck
 animals.html            animals deck
 vehicles.html           vehicles deck
+food.html               food deck
 assets/styles.css       all styles
 assets/app.js           landing page interactions
 assets/deck.js          shared card engine (rendering, speech, navigation)
-assets/decks/           per-deck data (numbers, animals, vehicles)
+assets/decks/           per-deck data (numbers, animals, vehicles, food)
 assets/animals/         animal artwork (Twemoji SVG)
 assets/vehicles/        vehicle artwork (Twemoji SVG)
+assets/food/            food artwork (Twemoji SVG)
 assets/audio/           bundled Cantonese recordings (fallback when no device voice)
 assets/audio/animals/   animal recordings
 assets/audio/vehicles/  vehicle recordings
+assets/audio/food/      food recordings
 ```
 
 ## Credits
 
-Animal and vehicle artwork comes from [Twemoji](https://github.com/jdecked/twemoji), licensed under
+Animal, vehicle and food artwork comes from [Twemoji](https://github.com/jdecked/twemoji), licensed under
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 Jyutping and “sounds like” hints are friendly approximations for grown-ups, not a formal romanisation guide.
