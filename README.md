@@ -11,6 +11,8 @@ Playful Cantonese flash cards for toddlers — big tap targets, friendly type, a
 - **Animals 動物** — twelve friendly animals, from 貓 (cat) to 象 (elephant).
 - **Vehicles 交通工具** — twelve things that go, including cars, trucks, fire engines and ambulances.
 - **Food 食物** — twelve fruits and vegetables, from 蘋果 (apple) to 薯仔 (potato).
+- **Colours 顏色** — twelve bright colours, from 紅色 (red) to 金色 (gold).
+- **My body 身體** — twelve first body words, from 頭 (head) to 腦 (brain).
 - Every card includes:
   - a big Chinese character and a cheerful illustration
   - the Jyutping and a “sounds like” hint
@@ -44,23 +46,30 @@ numbers.html            numbers deck
 animals.html            animals deck
 vehicles.html           vehicles deck
 food.html               food deck
+colours.html            colours deck
+body.html               my body deck
 assets/styles.css       all styles
 assets/app.js           landing page interactions
 assets/deck.js          shared card engine (rendering, speech, navigation)
-assets/decks/           per-deck data (numbers, animals, vehicles, food)
+assets/decks/           per-deck data (numbers, animals, vehicles, food, colours, body)
 assets/animals/         animal artwork (Twemoji SVG)
 assets/vehicles/        vehicle artwork (Twemoji SVG)
 assets/food/            food artwork (Twemoji SVG)
+assets/colours/         colour artwork (hearts adapted from Twemoji)
+assets/body/            body-part artwork (Twemoji plus original drawings)
 assets/audio/           bundled Cantonese recordings (fallback when no device voice)
 assets/audio/animals/   animal recordings
 assets/audio/vehicles/  vehicle recordings
 assets/audio/food/      food recordings
+assets/audio/colours/   colour recordings
+assets/audio/body/      body-part recordings
 ```
 
 ## Credits
 
-Animal, vehicle and food artwork comes from [Twemoji](https://github.com/jdecked/twemoji), licensed under
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+Card artwork is adapted from [Twemoji](https://github.com/jdecked/twemoji), licensed under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The head, hair and tummy drawings are
+original illustrations in the same flat style.
 
 Jyutping and “sounds like” hints are friendly approximations for grown-ups, not a formal romanisation guide.
 

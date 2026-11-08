@@ -1748,6 +1748,19 @@ kbd {
   }
 }
 
+@media (max-width: 860px) {
+  .site-header {
+    flex-wrap: wrap;
+  }
+
+  .site-nav {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+  }
+}
+
 @media (max-width: 720px) {
   .site-header,
   .deck-header {
@@ -1757,6 +1770,11 @@ kbd {
 
   .site-nav .nav-link--soft {
     display: none;
+  }
+
+  .nav-link {
+    padding: 8px 12px;
+    font-size: 14px;
   }
 
   .brand__tag {
@@ -1878,6 +1896,7 @@ kbd {
 
 @media (max-width: 560px) {
   .site-header {
+    flex-wrap: wrap;
     gap: 10px;
   }
 
@@ -1886,6 +1905,9 @@ kbd {
   }
 
   .site-nav {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 2px;
   }
 

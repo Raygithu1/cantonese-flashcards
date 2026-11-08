@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Gong Gong 講講 — Cantonese flash cards for little talkers</title>
-  <meta name="description" content="Playful Cantonese flash cards for toddlers. Learn numbers, animals, vehicles and food with Chinese characters, Jyutping, sounds-like hints and a big listen button.">
+  <meta name="description" content="Playful Cantonese flash cards for toddlers. Learn numbers, animals, vehicles, food, colours and body parts with Chinese characters, Jyutping, sounds-like hints and a big listen button.">
   <meta name="theme-color" content="#FFF6E9">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='26' fill='%23FF6B5B'/%3E%3Ctext x='50' y='72' font-size='60' text-anchor='middle' fill='%23FFF6E9' font-family='serif'%3E講%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=5">
+  <link rel="stylesheet" href="assets/styles.css?v=6">
 </head>
 <body class="landing">
 
@@ -36,6 +36,8 @@
       <a class="nav-link" href="animals.html">Animals</a>
       <a class="nav-link" href="vehicles.html">Vehicles</a>
       <a class="nav-link" href="food.html">Food</a>
+      <a class="nav-link" href="colours.html">Colours</a>
+      <a class="nav-link" href="body.html">My body</a>
       <a class="nav-link nav-link--soft" href="#how">How it works</a>
     </nav>
   </header>
@@ -138,27 +140,27 @@
           <span class="deck-card__watermark" aria-hidden="true">食</span>
         </a>
 
-        <button class="deck-card deck-card--colours is-soon" type="button" data-soon="Colours">
+        <a class="deck-card deck-card--colours" href="colours.html">
           <span class="deck-card__top">
-            <span class="deck-card__icon deck-card__icon--dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-            <span class="pill">Coming soon</span>
+            <span class="deck-card__icon" aria-hidden="true"><img src="assets/colours/red.svg" alt="" width="34" height="34"></span>
+            <span class="pill pill--live">Ready to play</span>
           </span>
           <span class="deck-card__title">Colours</span>
           <span class="deck-card__desc">Red, blue, yellow and a rainbow of fun.</span>
-          <span class="deck-card__cta">Tap to peek</span>
+          <span class="deck-card__cta">Open deck <span aria-hidden="true">&rarr;</span></span>
           <span class="deck-card__watermark" aria-hidden="true">色</span>
-        </button>
+        </a>
 
-        <button class="deck-card deck-card--body is-soon" type="button" data-soon="My body">
+        <a class="deck-card deck-card--body" href="body.html">
           <span class="deck-card__top">
-            <span class="deck-card__icon deck-card__icon--face" aria-hidden="true">☺</span>
-            <span class="pill">Coming soon</span>
+            <span class="deck-card__icon" aria-hidden="true"><img src="assets/body/head.svg" alt="" width="34" height="34"></span>
+            <span class="pill pill--live">Ready to play</span>
           </span>
           <span class="deck-card__title">My body</span>
-          <span class="deck-card__desc">Head, shoulders, knees and toes &mdash; 廣東話 style.</span>
-          <span class="deck-card__cta">Tap to peek</span>
+          <span class="deck-card__desc">Head, eyes, hands and toes &mdash; 廣東話 style.</span>
+          <span class="deck-card__cta">Open deck <span aria-hidden="true">&rarr;</span></span>
           <span class="deck-card__watermark" aria-hidden="true">手</span>
-        </button>
+        </a>
       </div>
     </section>
 
@@ -207,12 +209,10 @@
         <span><strong>Gong Gong</strong><br><span class="muted">Made with love for little Cantonese voices.</span></span>
       </div>
       <p class="disclaimer">Jyutping and &ldquo;sounds like&rdquo; hints are friendly approximations. Audio uses your device&rsquo;s built-in Chinese voice, so accents may vary.</p>
-      <p class="disclaimer">Animal, vehicle and food artwork from <a href="https://github.com/jdecked/twemoji" rel="noopener">Twemoji</a>, used under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a>.</p>
+      <p class="disclaimer">Card artwork is adapted from <a href="https://github.com/jdecked/twemoji" rel="noopener">Twemoji</a>, used under <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a>, with original drawings in the same style.</p>
     </div>
   </footer>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <script src="assets/app.js?v=5" defer></script>
+  <script src="assets/app.js?v=6" defer></script>
 </body>
 </html>
