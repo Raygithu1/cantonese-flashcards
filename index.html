@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=9">
+  <link rel="stylesheet" href="assets/styles.css?v=10">
 </head>
 <body class="landing">
 
@@ -43,61 +43,11 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="hero__copy">
-        <p class="eyebrow"><span class="eyebrow__dot"></span> Made for ages 1&ndash;4</p>
-        <h1 class="hero__title">Little words,<br><span class="highlight">big giggles.</span></h1>
-        <p class="hero__cantonese" lang="yue">一齊講廣東話！</p>
-        <p class="hero__lead">Big, friendly flash cards that help your little one hear and say their first Cantonese words. Tap, listen, repeat.</p>
-        <div class="hero__actions">
-          <a class="btn btn--primary btn--xl" href="numbers.html">
-            <span class="btn__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/></svg>
-            </span>
-            Start with numbers
-          </a>
-          <a class="btn btn--ghost" href="random.html">
-            <span class="btn__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" stroke="none"><path d="M12 2.6l2.4 6.9 7 2.5-7 2.5-2.4 6.9-2.4-6.9-7-2.5 7-2.5z"/></svg>
-            </span>
-            Surprise me
-          </a>
-        </div>
-        <p class="hero__note">Free &middot; no sign-up &middot; works on any device</p>
-      </div>
-
-      <div class="hero__art" aria-hidden="true">
-        <div class="fan">
-          <div class="fan__card fan__card--back">
-            <span class="fan__num">八</span>
-            <span class="fan__mini">baat3</span>
-          </div>
-          <div class="fan__card fan__card--mid">
-            <span class="fan__num">五</span>
-            <span class="fan__mini">ng5</span>
-          </div>
-          <div class="fan__card fan__card--front">
-            <span class="fan__badge">3</span>
-            <span class="fan__num">三</span>
-            <span class="fan__pinyin">saam1</span>
-            <span class="fan__say">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5Z" fill="currentColor" stroke="none"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a9 9 0 0 1 0 12"/></svg>
-              Say it
-            </span>
-            <span class="fan__dots"><i></i><i></i><i></i></span>
-          </div>
-        </div>
-        <span class="float-sticker float-sticker--1">聽</span>
-        <span class="float-sticker float-sticker--2">講</span>
-        <span class="float-sticker float-sticker--3">玩</span>
-      </div>
-    </section>
-
-    <section class="section" id="decks">
-      <div class="section__head">
-        <p class="eyebrow"><span class="eyebrow__dot eyebrow__dot--teal"></span> Pick a deck</p>
-        <h2>What shall we learn today?</h2>
-        <p class="section__lead">Start small. One lovely card at a time.</p>
+    <section class="section section--decks" id="decks">
+      <div class="section__head section__head--brief">
+        <p class="eyebrow"><span class="eyebrow__dot"></span> Cantonese for ages 1&ndash;4</p>
+        <h1>Pick a card. Hear a word.</h1>
+        <p class="section__lead">Big, friendly flash cards for little Cantonese voices. <span lang="yue">一齊講廣東話！</span></p>
       </div>
 
       <div class="deck-grid">
@@ -107,7 +57,7 @@
             <span class="pill pill--live">Ready to play</span>
           </span>
           <span class="deck-card__title">Numbers</span>
-          <span class="deck-card__desc">零 to 十 &mdash; eleven chunky counting cards.</span>
+          <span class="deck-card__desc">一 to 十 &mdash; ten chunky counting cards.</span>
           <span class="deck-card__cta">Open deck <span aria-hidden="true">&rarr;</span></span>
           <span class="deck-card__watermark" aria-hidden="true">三</span>
         </a>
@@ -166,6 +116,15 @@
           <span class="deck-card__cta">Open deck <span aria-hidden="true">&rarr;</span></span>
           <span class="deck-card__watermark" aria-hidden="true">手</span>
         </a>
+
+        <a class="surprise-card" href="random.html">
+          <span class="surprise-card__icon" aria-hidden="true">✦</span>
+          <span class="surprise-card__copy">
+            <span class="surprise-card__title">Surprise card <span lang="yue">隨機卡</span></span>
+            <span class="surprise-card__desc">Feeling lucky? Pull a random card from any of the six decks.</span>
+          </span>
+          <span class="surprise-card__cta">Surprise me <span aria-hidden="true">&rarr;</span></span>
+        </a>
       </div>
     </section>
 
@@ -218,6 +177,6 @@
     </div>
   </footer>
 
-  <script src="assets/app.js?v=9" defer></script>
+  <script src="assets/app.js?v=10" defer></script>
 </body>
 </html>

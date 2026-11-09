@@ -6,19 +6,20 @@ Playful Cantonese flash cards for toddlers — big tap targets, friendly type, a
 
 ## What's inside
 
-- **Landing page** — a bright playroom-style introduction with the deck picker.
-- **Numbers 零–十** — eleven counting cards with chunky count-along friends.
+- **Landing page** — opens straight onto the card picker, with a bright playroom feel.
+- **Numbers 一–十** — ten counting cards with chunky count-along friends.
 - **Animals 動物** — twelve friendly animals, from 貓 (cat) to 象 (elephant).
 - **Vehicles 交通工具** — twelve things that go, including cars, trucks, fire engines and ambulances.
 - **Food 食物** — twelve fruits and vegetables, from 蘋果 (apple) to 薯仔 (potato).
 - **Colours 顏色** — twelve bright colours, from 紅色 (red) to 金色 (gold).
 - **My body 身體** — twelve first body words, from 頭 (head) to 腦 (brain).
-- **Surprise card 隨機卡** — one shuffled card from any of the six decks, with an **Another card** button for endless mix-ups.
+- **Surprise card 隨機卡** — the last card on the landing page. Pulls one shuffled card from any of the six decks, with an **Another card** button for endless mix-ups.
 - Every card includes:
   - a big Chinese character and a cheerful illustration
   - the Jyutping and a “sounds like” hint
   - a large **Say it** button that plays the word in Cantonese
 - Swipe, arrow-key and dot navigation, plus an optional auto-say toggle.
+- Designed for little fingers: large tap targets, no double-tap zoom delay, and safe-area padding on phones and tablets.
 - Remembers the auto-say preference and supports deep links such as `#3`, `#cat` or `?word=strawberry`.
 - No build step, no tracking, no accounts.
 

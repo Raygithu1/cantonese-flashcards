@@ -5,7 +5,6 @@ window.GONG_GONG_DECK = {
   noun: "number",
   audioBase: "assets/audio/",
   items: [
-    { n: 0, char: "零", jyutping: "ling4", sounds: "ling", english: "zero", hint: "Like “ling” in “bling”." },
     { n: 1, char: "一", jyutping: "jat1", sounds: "yut", english: "one", hint: "Rhymes with “hut”." },
     { n: 2, char: "二", jyutping: "ji6", sounds: "yee", english: "two", hint: "Like a happy “yee!”." },
     { n: 3, char: "三", jyutping: "saam1", sounds: "sahm", english: "three", hint: "Like “psalm” without the l." },
