@@ -380,7 +380,6 @@
     if (deckLink && deckName && item.deckHref) {
       deckName.textContent = item.deckName || "card";
       deckLink.href = item.deckHref;
-      deckLink.setAttribute("aria-label", "See more " + (item.deckName || "card") + " cards");
       deckLink.hidden = false;
     }
 
