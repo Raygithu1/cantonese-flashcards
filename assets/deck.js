@@ -9,6 +9,7 @@
   var THEMES = deck.palette || ["#28b5a6", "#ff6b5b", "#9b7ede", "#3d8fe8", "#e2557f", "#4fae8b"];
   var TOKEN_COLORS = ["#ffd166", "#ff9bc2", "#8ed1fc", "#fff3cf", "#ffffff", "#c7f0e9"];
   var isCount = deck.kind === "count";
+  var isRandom = deck.mode === "random";
 
   var card = document.getElementById("flashcard");
   var tile = document.getElementById("cardTile");
@@ -245,7 +246,7 @@
     try {
       recording.pause();
       recording.currentTime = 0;
-      recording.src = (deck.audioBase || "assets/audio/") + file;
+      recording.src = item.audioSrc || (deck.audioBase || "assets/audio/") + file;
       var attempt = recording.play();
       if (attempt && typeof attempt.catch === "function") {
         attempt.catch(failed);
@@ -301,11 +302,13 @@
     art.innerHTML = html;
     art.classList.toggle("flashcard__art--picture", !!item.img);
     card.classList.toggle("is-picture", !!item.img);
-    card.classList.toggle("is-dense", isCount && item.n >= 7);
+    card.classList.toggle("is-dense", (isCount || item.n !== undefined) && item.n >= 7);
   }
 
   function renderBadge(item) {
-    if (deck.emblemImg) {
+    if (item.badge) {
+      badge.textContent = item.badge;
+    } else if (deck.emblemImg) {
       badge.innerHTML = '<img class="flashcard__badge-img" src="' + deck.emblemImg + '" alt="">';
     } else if (isCount) {
       badge.textContent = item.n;
@@ -315,6 +318,11 @@
   }
 
   function buildDots() {
+    if (isRandom) {
+      dotsEl.hidden = true;
+      return;
+    }
+
     var fragment = document.createDocumentFragment();
     ITEMS.forEach(function (item, i) {
       var dot = document.createElement("button");
@@ -363,9 +371,18 @@
     sayBtn.setAttribute("aria-label", "Say it — tap to hear " + item.char + " — " + item.jyutping);
     sayBtn.title = item.hint || "";
 
-    tile.style.setProperty("--tile", THEMES[index % THEMES.length]);
+    tile.style.setProperty("--tile", item.tile || THEMES[index % THEMES.length]);
     progressFill.style.width = ((index + 1) / ITEMS.length) * 100 + "%";
     progressLabel.textContent = index + 1 + " / " + ITEMS.length;
+
+    var deckLink = document.getElementById("cardDeckLink");
+    var deckName = document.getElementById("cardDeckName");
+    if (deckLink && deckName && item.deckHref) {
+      deckName.textContent = item.deckName || "card";
+      deckLink.href = item.deckHref;
+      deckLink.setAttribute("aria-label", "See more " + (item.deckName || "card") + " cards");
+      deckLink.hidden = false;
+    }
 
     updateDots();
 
@@ -393,8 +410,15 @@
     speakCurrent();
   });
 
-  prevBtn.setAttribute("aria-label", "Previous " + (deck.noun || "card"));
-  nextBtn.setAttribute("aria-label", "Next " + (deck.noun || "card"));
+  prevBtn.setAttribute("aria-label", isRandom ? "Previous card" : "Previous " + (deck.noun || "card"));
+  nextBtn.setAttribute("aria-label", isRandom ? "Another card" : "Next " + (deck.noun || "card"));
+
+  var shuffleBtn = document.getElementById("shuffleBtn");
+  if (isRandom && shuffleBtn) {
+    shuffleBtn.addEventListener("click", function () {
+      goTo(index + 1, true);
+    });
+  }
 
   prevBtn.addEventListener("click", function () {
     goTo(index - 1, true);

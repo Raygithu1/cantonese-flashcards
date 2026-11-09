@@ -13,6 +13,7 @@ Playful Cantonese flash cards for toddlers — big tap targets, friendly type, a
 - **Food 食物** — twelve fruits and vegetables, from 蘋果 (apple) to 薯仔 (potato).
 - **Colours 顏色** — twelve bright colours, from 紅色 (red) to 金色 (gold).
 - **My body 身體** — twelve first body words, from 頭 (head) to 腦 (brain).
+- **Surprise card 隨機卡** — one shuffled card from any of the six decks, with an **Another card** button for endless mix-ups.
 - Every card includes:
   - a big Chinese character and a cheerful illustration
   - the Jyutping and a “sounds like” hint
@@ -48,9 +49,11 @@ vehicles.html           vehicles deck
 food.html               food deck
 colours.html            colours deck
 body.html               my body deck
+random.html             surprise card (shuffled across all decks)
 assets/styles.css       all styles
 assets/app.js           landing page interactions
 assets/deck.js          shared card engine (rendering, speech, navigation)
+assets/random.js        merges every deck and shuffles the surprise cards
 assets/decks/           per-deck data (numbers, animals, vehicles, food, colours, body)
 assets/animals/         animal artwork (Twemoji SVG)
 assets/vehicles/        vehicle artwork (Twemoji SVG)

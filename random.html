@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Surprise card 隨機卡 — Gong Gong 講講</title>
+  <meta name="description" content="A random Cantonese flash card for toddlers, picked from numbers, animals, vehicles, food, colours and body parts. Tap to hear it, then ask for another.">
+  <meta name="theme-color" content="#FFF6E9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='26' fill='%23FF6B5B'/%3E%3Ctext x='50' y='72' font-size='60' text-anchor='middle' fill='%23FFF6E9' font-family='serif'%3E講%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&text=%E4%B8%80%E4%B8%83%E4%B8%89%E4%B9%9D%E4%BA%8C%E4%BA%94%E4%BB%94%E5%85%94%E5%85%AB%E5%85%AD%E5%8D%81%E5%8D%A1%E5%8F%A3%E5%95%A1%E5%95%A4%E5%96%AE%E5%9B%9B%E5%A3%AB%E5%A4%9A%E5%AD%90%E5%B0%8F%E5%B7%B4%E5%BF%83%E6%89%8B%E6%8F%90%E6%95%91%E6%9E%9C%E6%A2%A8%E6%A9%99%E6%A9%9F%E6%B6%88%E7%81%AB%E7%81%B0%E7%89%99%E7%89%9B%E7%8B%97%E7%93%9C%E7%94%9F%E7%95%AA%E7%99%BD%E7%9A%84%E7%9C%BC%E7%B1%B3%E7%B2%89%E7%B2%9F%E7%B4%85%E7%B4%AB%E7%B6%A0%E7%BE%8A%E8%80%B3%E8%82%9A%E8%85%A6%E8%85%B3%E8%88%B9%E8%89%B2%E8%8A%B1%E8%8C%84%E8%8F%9C%E8%94%94%E8%95%89%E8%96%AF%E8%97%8D%E8%98%8B%E8%98%AD%E8%98%BF%E8%A5%BF%E8%AC%9B%E8%AD%A6%E8%AD%B7%E8%B1%A1%E8%B1%AC%E8%B2%93%E8%B2%A8%E8%BB%8A%E9%87%91%E9%98%B2%E9%9A%A8%E9%9B%80%E9%9B%9E%E9%9B%B6%E9%A0%AD%E9%A3%9B%E9%A6%99%E9%A6%AC%E9%AB%AE%E9%AD%9A%E9%B4%A8%E9%BB%83%E9%BB%91%E9%BC%BB&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css?v=7">
+</head>
+<body class="deck-page deck-page--random">
+
+  <div class="sky sky--deck" aria-hidden="true">
+    <span class="blob blob--coral"></span>
+    <span class="blob blob--teal"></span>
+    <span class="blob blob--sun"></span>
+  </div>
+
+  <header class="deck-header">
+    <a class="brand brand--compact" href="index.html">
+      <span class="brand__mark brand__mark--small" aria-hidden="true">講</span>
+      <span class="brand__text"><span class="brand__name">Gong Gong</span></span>
+    </a>
+    <h1 class="deck-header__title">Surprise card <span lang="yue">隨機卡</span></h1>
+    <div class="deck-header__tools">
+      <button class="toggle" id="autoSay" type="button" aria-pressed="true" title="Automatically say each card when you pick another">
+        <span class="toggle__track" aria-hidden="true"><span class="toggle__thumb"></span></span>
+        <span class="toggle__label">Auto say</span>
+      </button>
+      <a class="icon-btn" href="index.html" aria-label="Home">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <main class="deck-main">
+    <div class="deck-progress" aria-hidden="true">
+      <span class="deck-progress__bar"><span class="deck-progress__fill" id="progressFill"></span></span>
+      <span class="deck-progress__label" id="progressLabel">1 / 71</span>
+    </div>
+
+    <section class="flashcard" id="flashcard" aria-live="polite">
+      <div class="flashcard__tile" id="cardTile">
+        <span class="flashcard__badge" id="cardBadge">✦</span>
+        <div class="flashcard__art" id="cardArt"></div>
+        <span class="flashcard__char-bg" id="cardBgChar" aria-hidden="true">講</span>
+        <span class="flashcard__spark flashcard__spark--a" aria-hidden="true">✦</span>
+        <span class="flashcard__spark flashcard__spark--b" aria-hidden="true">✧</span>
+        <span class="flashcard__spark flashcard__spark--c" aria-hidden="true">✦</span>
+      </div>
+
+      <div class="flashcard__body">
+        <div class="flashcard__char-row">
+          <span class="flashcard__char" id="cardChar" lang="yue">講</span>
+          <span class="flashcard__english" id="cardEnglish">surprise</span>
+        </div>
+
+        <div class="flashcard__meta">
+          <div class="meta">
+            <span class="meta__label">Jyutping</span>
+            <span class="meta__value" id="cardJyutping">gong2</span>
+          </div>
+          <div class="meta meta--sounds">
+            <span class="meta__label">Sounds like</span>
+            <span class="meta__value" id="cardSounds">gong</span>
+          </div>
+        </div>
+
+        <button class="say-btn" id="sayBtn" type="button">
+          <span class="say-btn__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5Z" fill="currentColor" stroke="none"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a9 9 0 0 1 0 12"/></svg>
+          </span>
+          <span class="say-btn__text">Say it<small id="sayHint">tap to hear 講</small></span>
+          <span class="say-btn__wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        </button>
+
+        <a class="deck-origin" id="cardDeckLink" href="index.html" hidden>
+          From <strong id="cardDeckName">a deck</strong> <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </section>
+
+    <div class="random-bar">
+      <button class="btn btn--primary btn--xl" id="shuffleBtn" type="button">
+        <span class="btn__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" stroke="none"><path d="M12 2.6l2.4 6.9 7 2.5-7 2.5-2.4 6.9-2.4-6.9-7-2.5 7-2.5z"/></svg>
+        </span>
+        Another card
+      </button>
+    </div>
+
+    <nav class="deck-nav" aria-label="Flash card navigation">
+      <button class="round-btn" id="prevBtn" type="button" aria-label="Previous card">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+
+      <div class="dots" id="dots" role="group" aria-label="Choose a card"></div>
+
+      <button class="round-btn round-btn--next" id="nextBtn" type="button" aria-label="Another card">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </nav>
+
+    <p class="deck-footnote">A fresh shuffle of all six decks on every visit. Tap <strong>Another card</strong>, or press <kbd>&larr;</kbd> <kbd>&rarr;</kbd>, to keep going.</p>
+    <p class="voice-note" id="voiceNote" hidden></p>
+  </main>
+
+  <script>
+    /* Collect every deck as its data file loads, then hand one merged,
+       shuffled deck to the shared card engine. */
+    window.__GONG_GONG_DECKS = [];
+    Object.defineProperty(window, "GONG_GONG_DECK", {
+      configurable: true,
+      set: function (value) {
+        if (value && value.items && value.items.length) {
+          window.__GONG_GONG_DECKS.push(value);
+        }
+      }
+    });
+  </script>
+  <script src="assets/decks/numbers.js?v=7" defer></script>
+  <script src="assets/decks/animals.js?v=7" defer></script>
+  <script src="assets/decks/vehicles.js?v=7" defer></script>
+  <script src="assets/decks/food.js?v=7" defer></script>
+  <script src="assets/decks/colours.js?v=7" defer></script>
+  <script src="assets/decks/body.js?v=7" defer></script>
+  <script src="assets/random.js?v=7" defer></script>
+  <script src="assets/deck.js?v=7" defer></script>
+</body>
+</html>
