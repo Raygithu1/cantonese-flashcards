@@ -368,7 +368,6 @@
     jyutpingEl.textContent = item.jyutping;
     soundsEl.textContent = item.sounds;
     sayHint.textContent = "tap to hear " + item.char;
-    sayBtn.setAttribute("aria-label", "Say it — tap to hear " + item.char + " — " + item.jyutping);
     sayBtn.title = item.hint || "";
 
     tile.style.setProperty("--tile", item.tile || THEMES[index % THEMES.length]);
