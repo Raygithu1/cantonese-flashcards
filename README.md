@@ -13,7 +13,10 @@ Playful Cantonese flash cards for toddlers — big tap targets, friendly type, a
 - **Food 食物** — twelve fruits and vegetables, from 蘋果 (apple) to 薯仔 (potato).
 - **Colours 顏色** — twelve bright colours, from 紅色 (red) to 金色 (gold).
 - **My body 身體** — twelve first body words, from 頭 (head) to 腦 (brain).
-- **Surprise card 隨機卡** — the last card on the landing page. Pulls one shuffled card from any of the six decks, with an **Another card** button for endless mix-ups.
+- **Family 家人** — twelve first family words, from 媽媽 (mum) to 姨姨 (auntie).
+- **Actions 動作** — twelve everyday actions, from 食 (eat) to 刷牙 (brush teeth).
+- **Coming soon** — Feelings, Clothes, Weather, Bedtime, Sea animals and Shapes are shown on the landing page as coming-soon cards.
+- **Surprise card 隨機卡** — the last card on the landing page. Pulls one shuffled card from any of the eight decks, with an **Another card** button for endless mix-ups.
 - Every card includes:
   - a big Chinese character and a cheerful illustration
   - the Jyutping and a “sounds like” hint
@@ -50,23 +53,29 @@ vehicles.html           vehicles deck
 food.html               food deck
 colours.html            colours deck
 body.html               my body deck
+family.html             family deck
+actions.html            actions deck
 random.html             surprise card (shuffled across all decks)
 assets/styles.css       all styles
 assets/app.js           landing page interactions
 assets/deck.js          shared card engine (rendering, speech, navigation)
 assets/random.js        merges every deck and shuffles the surprise cards
-assets/decks/           per-deck data (numbers, animals, vehicles, food, colours, body)
+assets/decks/           per-deck data (numbers, animals, vehicles, food, colours, body, family, actions)
 assets/animals/         animal artwork (Twemoji SVG)
 assets/vehicles/        vehicle artwork (Twemoji SVG)
 assets/food/            food artwork (Twemoji SVG)
 assets/colours/         colour artwork (hearts adapted from Twemoji)
 assets/body/            body-part artwork (Twemoji plus original drawings)
+assets/family/          family artwork (Twemoji SVG)
+assets/actions/         action artwork (Twemoji SVG)
 assets/audio/           bundled Cantonese recordings (fallback when no device voice)
 assets/audio/animals/   animal recordings
 assets/audio/vehicles/  vehicle recordings
 assets/audio/food/      food recordings
 assets/audio/colours/   colour recordings
 assets/audio/body/      body-part recordings
+assets/audio/family/    family recordings
+assets/audio/actions/   action recordings
 ```
 
 ## Credits

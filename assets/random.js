@@ -3,14 +3,16 @@
   "use strict";
 
   var decks = window.__GONG_GONG_DECKS || [];
-  var BADGES = { numbers: "數", animals: "動", vehicles: "車", food: "食", colours: "色", body: "身" };
+  var BADGES = { numbers: "數", animals: "動", vehicles: "車", food: "食", colours: "色", body: "身", family: "家", actions: "做" };
   var NAMES = {
     numbers: "Numbers",
     animals: "Animals",
     vehicles: "Vehicles",
     food: "Food",
     colours: "Colours",
-    body: "My body"
+    body: "My body",
+    family: "Family",
+    actions: "Actions"
   };
   var items = [];
   var FALLBACK_TILES = ["#ff6b5b", "#ffb020", "#28b5a6", "#9b7ede", "#e2557f", "#4f8fe8"];
