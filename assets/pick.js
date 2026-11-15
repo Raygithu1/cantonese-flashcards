@@ -83,8 +83,7 @@
 
   function stopAudio() {
     recordingToken += 1;
-    window.clearTimeout(speakingTimer);
-    hearBtn.classList.remove("is-speaking");
+    endSpeaking();
 
     if (recording) {
       recording.onended = null;
@@ -100,20 +99,25 @@
     if (window.speechSynthesis) window.speechSynthesis.cancel();
   }
 
-  function beginSpeaking() {
-    hearBtn.classList.add("is-speaking");
+  var activeSpeaker = hearBtn;
+
+  function beginSpeaking(speaker) {
     window.clearTimeout(speakingTimer);
+    if (activeSpeaker) activeSpeaker.classList.remove("is-speaking");
+    activeSpeaker = speaker || hearBtn;
+    activeSpeaker.classList.add("is-speaking");
     speakingTimer = window.setTimeout(function () {
-      hearBtn.classList.remove("is-speaking");
+      if (activeSpeaker) activeSpeaker.classList.remove("is-speaking");
     }, 3000);
   }
 
   function endSpeaking() {
     window.clearTimeout(speakingTimer);
-    hearBtn.classList.remove("is-speaking");
+    if (activeSpeaker) activeSpeaker.classList.remove("is-speaking");
+    activeSpeaker = hearBtn;
   }
 
-  function speakWithVoice(voice, item, hadRecordingError) {
+  function speakWithVoice(voice, item, hadRecordingError, speaker) {
     var utterance = new SpeechSynthesisUtterance(item.char);
     if (voice) {
       utterance.voice = voice;
@@ -134,7 +138,7 @@
 
     utterance.onstart = function () {
       heard = true;
-      beginSpeaking();
+      beginSpeaking(speaker);
     };
     utterance.onend = done;
     utterance.onerror = done;
@@ -154,13 +158,13 @@
     }
   }
 
-  function playRecording(item) {
+  function playRecording(item, speaker) {
     if (!recording) {
       var fallback = bestVoice || chooseVoice(window.speechSynthesis ? window.speechSynthesis.getVoices() || [] : []);
       if (fallback) {
-        speakWithVoice(fallback, item, true);
+        speakWithVoice(fallback, item, true, speaker);
       } else if (window.speechSynthesis) {
-        speakWithVoice(null, item, true);
+        speakWithVoice(null, item, true, speaker);
       }
       return;
     }
@@ -171,7 +175,7 @@
     recording.onplaying = function () {
       if (token !== recordingToken) return;
       heard = true;
-      beginSpeaking();
+      beginSpeaking(speaker);
     };
 
     recording.onended = function () {
@@ -190,9 +194,9 @@
       endSpeaking();
       var fallback = bestVoice || chooseVoice(window.speechSynthesis ? window.speechSynthesis.getVoices() || [] : []);
       if (fallback) {
-        speakWithVoice(fallback, item, true);
+        speakWithVoice(fallback, item, true, speaker);
       } else if (window.speechSynthesis) {
-        speakWithVoice(null, item, true);
+        speakWithVoice(null, item, true, speaker);
       }
     }
 
@@ -209,8 +213,7 @@
     }
   }
 
-  function speakTarget() {
-    var item = cards[targetIndex];
+  function speakItem(item, speaker) {
     if (!item) return;
 
     if (!window.speechSynthesis && !recording) {
@@ -225,10 +228,14 @@
     var voice = bestVoice || chooseVoice(window.speechSynthesis ? window.speechSynthesis.getVoices() || [] : []);
 
     if (voice && scoreVoice(voice) >= 3) {
-      speakWithVoice(voice, item, false);
+      speakWithVoice(voice, item, false, speaker);
     } else {
-      playRecording(item);
+      playRecording(item, speaker);
     }
+  }
+
+  function speakTarget() {
+    speakItem(cards[targetIndex], hearBtn);
   }
 
   if (window.speechSynthesis) {
@@ -277,11 +284,14 @@
   }
 
   function buildCard(item, slot) {
-    var btn = document.createElement("button");
-    btn.type = "button";
+    /* A div with role="button" so the little speaker button can sit inside
+       without nesting one button inside another. */
+    var btn = document.createElement("div");
     btn.className = "pick-card";
     btn.setAttribute("data-slot", String(slot));
-    btn.setAttribute("aria-label", "Picture " + (slot + 1));
+    btn.setAttribute("role", "button");
+    btn.setAttribute("tabindex", "0");
+    btn.setAttribute("aria-label", item.char + " — " + item.english);
 
     var tile = document.createElement("span");
     tile.className = "pick-card__tile";
@@ -299,12 +309,27 @@
     mark.className = "pick-card__mark";
     mark.setAttribute("aria-hidden", "true");
 
+    var say = document.createElement("button");
+    say.type = "button";
+    say.className = "pick-card__say";
+    say.setAttribute("aria-label", "Hear " + item.char + " — " + item.english);
+    say.innerHTML =
+      '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="M11 5 6 9H3v6h3l5 4V5Z" fill="currentColor" stroke="none"/>' +
+      '<path d="M15.5 8.5a5 5 0 0 1 0 7"/>' +
+      '<path d="M18.5 6a9 9 0 0 1 0 12"/>' +
+      "</svg>";
+    say.addEventListener("click", function (event) {
+      event.stopPropagation();
+      speakItem(item, say);
+    });
+
     tile.appendChild(art);
+    tile.appendChild(say);
     tile.appendChild(mark);
 
     var caption = document.createElement("span");
     caption.className = "pick-card__caption";
-    caption.setAttribute("aria-hidden", "true");
 
     var charEl = document.createElement("span");
     charEl.className = "pick-card__char";
@@ -323,6 +348,14 @@
 
     btn.addEventListener("click", function () {
       choose(slot);
+    });
+
+    btn.addEventListener("keydown", function (event) {
+      if (event.target !== btn) return;
+      if (event.key === "Enter" || event.key === " " || event.key === "Spacebar") {
+        event.preventDefault();
+        choose(slot);
+      }
     });
 
     return btn;
@@ -344,7 +377,7 @@
     board.setAttribute("data-target", String(targetIndex));
 
     feedback.className = "pick-feedback";
-    feedback.textContent = "Listen, then tap the picture that matches.";
+    feedback.textContent = "Listen, then tap the word that matches.";
 
     hearBtn.disabled = false;
     hearBtn.querySelector(".say-btn__text small").textContent = "tap to hear the word";
@@ -354,15 +387,19 @@
 
   function revealCard(btn, item, correct) {
     btn.classList.add("is-revealed");
-    var caption = btn.querySelector(".pick-card__caption");
-    caption.setAttribute("aria-hidden", "false");
-
     btn.setAttribute("aria-label", item.char + " — " + item.english + (correct ? ". Correct!" : ". Not the word you heard."));
   }
 
   function choose(slot) {
-    if (answered) return;
     if (!cards.length) return;
+
+    /* After the round is answered, tapping a card replays that card's word,
+       so the child can compare both. */
+    if (answered) {
+      var settledCard = board.children[slot];
+      speakItem(cards[slot], settledCard ? settledCard.querySelector(".pick-card__say") : hearBtn);
+      return;
+    }
 
     /* Some browsers block speech until the page is tapped. If the very first
        tap lands on a card before any audio has started, play the word instead
@@ -371,7 +408,7 @@
       trialTapUsed = true;
       speakTarget();
       feedback.className = "pick-feedback is-try";
-      feedback.textContent = "Have a listen first — then tap the picture.";
+      feedback.textContent = "Have a listen first — then tap the word.";
       return;
     }
 
@@ -386,7 +423,6 @@
     Array.prototype.forEach.call(board.children, function (btn, i) {
       var item = cards[i];
       revealCard(btn, item, i === targetIndex);
-      btn.setAttribute("aria-disabled", "true");
     });
 
     targetBtn.classList.add("is-correct");
@@ -412,6 +448,8 @@
   document.addEventListener("keydown", function (event) {
     var tag = (event.target && event.target.tagName) || "";
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+    /* The focused card already handled Enter/Space to pick an answer. */
+    if (event.defaultPrevented) return;
 
     if (event.key === "1" || event.key === "2") {
       event.preventDefault();

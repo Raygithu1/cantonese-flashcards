@@ -1929,8 +1929,14 @@ kbd {
   background: var(--paper);
   box-shadow: 0 6px 0 rgba(45, 42, 50, 0.15);
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+}
+
+.pick-card:focus-visible {
+  outline: 3px solid var(--teal-dark);
+  outline-offset: 3px;
 }
 
 .pick-card:not(.is-correct):not(.is-wrong):hover {
@@ -2033,6 +2039,48 @@ kbd {
   content: "✕";
 }
 
+.pick-card__say {
+  position: absolute;
+  z-index: 3;
+  top: 8px;
+  left: 8px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2.5px solid var(--ink);
+  border-radius: 50%;
+  background: rgba(255, 253, 248, 0.94);
+  color: var(--ink);
+  box-shadow: 2px 3px 0 rgba(45, 42, 50, 0.2);
+  transition: transform 0.15s ease, background 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pick-card__say:hover {
+  background: #fff;
+  transform: scale(1.06);
+}
+
+.pick-card__say:active {
+  transform: scale(0.94);
+}
+
+.pick-card__say.is-speaking {
+  background: var(--sun);
+  animation: sayPulse 0.9s ease-in-out infinite;
+}
+
+.pick-card__say:focus-visible {
+  outline: 3px solid var(--teal-dark);
+  outline-offset: 2px;
+}
+
+@keyframes sayPulse {
+  50% { transform: scale(1.14); }
+}
+
 .pick-card__caption {
   display: flex;
   align-items: baseline;
@@ -2041,14 +2089,6 @@ kbd {
   gap: 3px 8px;
   min-height: 34px;
   padding: 8px 4px 2px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
-}
-
-.pick-card.is-revealed .pick-card__caption {
-  opacity: 1;
-  visibility: visible;
 }
 
 .pick-card__char {
@@ -2496,6 +2536,14 @@ kbd {
     padding-top: 6px;
   }
 
+  .pick-card__say {
+    top: 6px;
+    left: 6px;
+    width: 40px;
+    height: 40px;
+    border-width: 2px;
+  }
+
   .pick-bar .btn {
     width: 100%;
   }
@@ -2674,6 +2722,77 @@ kbd {
   }
 }
 
+/* Short laptop and tablet windows: keep both word cards and the buttons on one screen. */
+@media (max-height: 800px) and (min-width: 561px) {
+  .pick-main {
+    width: min(560px, calc(100% - 36px));
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
+  }
+
+  .pick-intro {
+    margin-bottom: 8px;
+  }
+
+  .pick-intro h2 {
+    font-size: 1.65rem;
+    margin: 2px 0 4px;
+  }
+
+  .pick-hear {
+    min-height: 60px;
+    margin-bottom: 12px;
+  }
+
+  .pick-board {
+    gap: 12px;
+  }
+
+  .pick-card {
+    padding: 7px;
+  }
+
+  .pick-card__tile {
+    aspect-ratio: 1.22;
+    padding: 11%;
+  }
+
+  .pick-card__say {
+    top: 6px;
+    left: 6px;
+    width: 40px;
+    height: 40px;
+    border-width: 2px;
+  }
+
+  .pick-card__caption {
+    min-height: 30px;
+    padding: 6px 2px 1px;
+  }
+
+  .pick-card__char {
+    font-size: 1.3rem;
+  }
+
+  .pick-card__english {
+    font-size: 1.05rem;
+  }
+
+  .pick-feedback {
+    min-height: 42px;
+    margin-top: 10px;
+    padding: 7px 14px;
+    font-size: 15px;
+  }
+
+  .pick-bar {
+    margin-top: 10px;
+  }
+
+  .pick-footnote {
+    display: none;
+  }
+}
+
 @media (max-width: 380px) {
   .site-header {
     flex-wrap: wrap;
@@ -2746,7 +2865,7 @@ kbd {
   }
 
   .pick-card__char {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
   }
 
   .pick-card__english {

@@ -15,7 +15,7 @@ Playful Cantonese flash cards for toddlers — big tap targets, friendly type, a
 - **My body 身體** — twelve first body words, from 頭 (head) to 腦 (brain).
 - **Family 家人** — twelve first family words, from 媽媽 (mum) to 姨姨 (auntie).
 - **Actions 動作** — twelve everyday actions, from 食 (eat) to 刷牙 (brush teeth).
-- **Listen & pick 聽一聽** — a no-score listening game built from the same picture decks. Two pictures appear, the app says one Cantonese word, and the child taps the matching card. Includes **Hear it again**, **New pair**, and friendly reveal feedback.
+- **Listen & pick 聽一聽** — a no-score listening game built from the same picture decks. Two cards appear, each showing its Chinese character and English word, and each with its own speaker button so either word can be heard. The app says one Cantonese word, and the child taps the card that matches. Includes **Hear it again**, **New pair**, and friendly reveal feedback.
 - **Coming soon** — Feelings, Clothes, Weather, Bedtime, Sea animals and Shapes are shown on the landing page as coming-soon cards.
 - **Surprise card 隨機卡** — the last card on the landing page. Pulls one shuffled card from any of the eight decks, with an **Another card** button for endless mix-ups.
 - Every card includes:
