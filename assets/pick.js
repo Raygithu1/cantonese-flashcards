@@ -319,8 +319,14 @@
       '<path d="M15.5 8.5a5 5 0 0 1 0 7"/>' +
       '<path d="M18.5 6a9 9 0 0 1 0 12"/>' +
       "</svg>";
+    /* Both words stay visible, but the speakers stay locked until the child
+       has picked a card. After the answer both can be replayed freely. */
+    say.disabled = !answered;
+    say.classList.toggle("is-locked", !answered);
+    if (!answered) say.title = "Pick a card first";
     say.addEventListener("click", function (event) {
       event.stopPropagation();
+      if (!answered) return;
       speakItem(item, say);
     });
 
@@ -413,6 +419,16 @@
     }
 
     answered = true;
+    window.clearTimeout(announceTimer);
+
+    /* Now that the round is answered, let either word be heard again. */
+    Array.prototype.forEach.call(board.children, function (btn) {
+      var speaker = btn.querySelector(".pick-card__say");
+      if (!speaker) return;
+      speaker.disabled = false;
+      speaker.classList.remove("is-locked");
+      speaker.removeAttribute("title");
+    });
 
     var target = cards[targetIndex];
     var chosen = cards[slot];

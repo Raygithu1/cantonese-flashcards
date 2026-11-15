@@ -15,9 +15,15 @@ Playful Cantonese flash cards for toddlers — big tap targets, friendly type, a
 - **My body 身體** — twelve first body words, from 頭 (head) to 腦 (brain).
 - **Family 家人** — twelve first family words, from 媽媽 (mum) to 姨姨 (auntie).
 - **Actions 動作** — twelve everyday actions, from 食 (eat) to 刷牙 (brush teeth).
-- **Listen & pick 聽一聽** — a no-score listening game built from the same picture decks. Two cards appear, each showing its Chinese character and English word, and each with its own speaker button so either word can be heard. The app says one Cantonese word, and the child taps the card that matches. Includes **Hear it again**, **New pair**, and friendly reveal feedback.
-- **Coming soon** — Feelings, Clothes, Weather, Bedtime, Sea animals and Shapes are shown on the landing page as coming-soon cards.
-- **Surprise card 隨機卡** — the last card on the landing page. Pulls one shuffled card from any of the eight decks, with an **Another card** button for endless mix-ups.
+- **Listen & pick 聽一聽** — a no-score listening game built from the same picture decks. Two cards appear, each showing its Chinese character and English word. The app says one Cantonese word, and the child taps the card that matches. Once the card is picked, each card's speaker button unlocks so either word can be heard again. Includes **Hear it again**, **New pair**, and friendly reveal feedback.
+- **Part 2 — Feelings 情緒** — twelve first feelings, from 開心 (happy) to 愛 (love).
+- **Part 2 — Clothes 衫褲** — twelve clothing words, from 衫 (top) to 眼鏡 (glasses).
+- **Part 2 — Weather 天氣** — twelve weather words, from 太陽 (sun) to 冰 (ice).
+- **Part 2 — Bedtime 睡前** — twelve bedtime words, from 床 (bed) to 燈 (lamp).
+- **Part 2 — Sea animals 海洋動物** — twelve sea creatures, from 鯨魚 (whale) to 海浪 (wave).
+- **Part 2 — Shapes 形狀** — twelve shapes, from 圓形 (circle) to 圓點 (dots).
+- **Two separate sets** — Part 2 has its own section below the original eight decks, so the two sets never mix. **Listen & pick** uses the Part 1 picture cards only.
+- **Surprise card 隨機卡** — the last card in the Part 1 grid. Pulls one shuffled card from any of the eight Part 1 decks, with an **Another card** button for endless mix-ups.
 - Every card includes:
   - a big Chinese character and a cheerful illustration
   - the Jyutping and a “sounds like” hint
@@ -56,14 +62,21 @@ colours.html            colours deck
 body.html               my body deck
 family.html             family deck
 actions.html            actions deck
-random.html             surprise card (shuffled across all decks)
+feelings.html           Part 2: feelings deck
+clothes.html            Part 2: clothes deck
+weather.html            Part 2: weather deck
+bedtime.html            Part 2: bedtime deck
+sea.html                Part 2: sea animals deck
+shapes.html             Part 2: shapes deck
+random.html             surprise card (shuffled across the eight Part 1 decks)
 pick.html               listen & pick game
 assets/styles.css       all styles
 assets/app.js           landing page interactions
 assets/deck.js          shared card engine (rendering, speech, navigation)
 assets/random.js        merges every deck and shuffles the surprise cards
 assets/pick.js          two-card listen & pick game from the picture decks
-assets/decks/           per-deck data (numbers, animals, vehicles, food, colours, body, family, actions)
+assets/decks/           per-deck data (Part 1: numbers, animals, vehicles, food, colours, body, family, actions;
+                        Part 2: feelings, clothes, weather, bedtime, sea, shapes)
 assets/animals/         animal artwork (Twemoji SVG)
 assets/vehicles/        vehicle artwork (Twemoji SVG)
 assets/food/            food artwork (Twemoji SVG)
@@ -71,6 +84,12 @@ assets/colours/         colour artwork (hearts adapted from Twemoji)
 assets/body/            body-part artwork (Twemoji plus original drawings)
 assets/family/          family artwork (Twemoji SVG)
 assets/actions/         action artwork (Twemoji SVG)
+assets/feelings/        Part 2: feelings artwork (Twemoji SVG)
+assets/clothes/         Part 2: clothes artwork (Twemoji SVG)
+assets/weather/         Part 2: weather artwork (Twemoji SVG)
+assets/bedtime/         Part 2: bedtime artwork (Twemoji SVG)
+assets/sea/             Part 2: sea animal artwork (Twemoji SVG)
+assets/shapes/          Part 2: shape artwork (original drawings)
 assets/audio/           bundled Cantonese recordings (fallback when no device voice)
 assets/audio/animals/   animal recordings
 assets/audio/vehicles/  vehicle recordings
@@ -79,13 +98,19 @@ assets/audio/colours/   colour recordings
 assets/audio/body/      body-part recordings
 assets/audio/family/    family recordings
 assets/audio/actions/   action recordings
+assets/audio/feelings/  Part 2: feeling recordings
+assets/audio/clothes/   Part 2: clothing recordings
+assets/audio/weather/   Part 2: weather recordings
+assets/audio/bedtime/   Part 2: bedtime recordings
+assets/audio/sea/       Part 2: sea animal recordings
+assets/audio/shapes/    Part 2: shape recordings
 ```
 
 ## Credits
 
 Card artwork is adapted from [Twemoji](https://github.com/jdecked/twemoji), licensed under
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The head, hair and tummy drawings are
-original illustrations in the same flat style.
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The head, hair and tummy drawings, and
+the Part 2 shape drawings, are original illustrations in the same flat style.
 
 Jyutping and “sounds like” hints are friendly approximations for grown-ups, not a formal romanisation guide.
 
