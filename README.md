@@ -15,7 +15,7 @@ Playful Cantonese flash cards for toddlers — big tap targets, friendly type, a
 - **My body 身體** — twelve first body words, from 頭 (head) to 腦 (brain).
 - **Family 家人** — twelve first family words, from 媽媽 (mum) to 姨姨 (auntie).
 - **Actions 動作** — twelve everyday actions, from 食 (eat) to 刷牙 (brush teeth).
-- **Listen & pick 聽一聽** — a no-score listening game built from the same picture decks. Two cards appear, each showing its Chinese character and English word. The app says one Cantonese word, and the child taps the card that matches. Once the card is picked, each card's speaker button unlocks so either word can be heard again. Includes **Hear it again**, **New pair**, and friendly reveal feedback.
+- **Listen & pick 聽一聽** — a no-score listening game built from the same picture decks. Choose **2, 3, 4 or 5 cards** (2 by default), each showing its Chinese character and English word. The app says one Cantonese word, and the child taps the card that matches. Once the card is picked, each card's speaker button unlocks so either word can be heard again. Includes a card-count picker, **Hear it again**, **New cards**, and friendly reveal feedback.
 - **Part 2 — Feelings 情緒** — twelve first feelings, from 開心 (happy) to 愛 (love).
 - **Part 2 — Clothes 衫褲** — twelve clothing words, from 衫 (top) to 眼鏡 (glasses).
 - **Part 2 — Weather 天氣** — twelve weather words, from 太陽 (sun) to 冰 (ice).
@@ -74,7 +74,7 @@ assets/styles.css       all styles
 assets/app.js           landing page interactions
 assets/deck.js          shared card engine (rendering, speech, navigation)
 assets/random.js        merges every deck and shuffles the surprise cards
-assets/pick.js          two-card listen & pick game from the picture decks
+assets/pick.js          listen & pick game (2-5 cards) from the Part 1 picture decks
 assets/decks/           per-deck data (Part 1: numbers, animals, vehicles, food, colours, body, family, actions;
                         Part 2: feelings, clothes, weather, bedtime, sea, shapes)
 assets/animals/         animal artwork (Twemoji SVG)

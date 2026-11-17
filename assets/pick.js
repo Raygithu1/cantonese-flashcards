@@ -24,15 +24,19 @@
   if (pool.length < 2) return;
 
   var board = document.getElementById("pickBoard");
+  var main = document.querySelector(".pick-main");
   var hearBtn = document.getElementById("hearBtn");
   var feedback = document.getElementById("pickFeedback");
   var newPairBtn = document.getElementById("newPairBtn");
   var voiceNote = document.getElementById("voiceNote");
+  var countBtns = document.querySelectorAll(".pick-count__btn");
 
+  var CARD_COUNTS = [2, 3, 4, 5];
+  var cardCount = 2;
   var bag = [];
   var cards = [];
   var targetIndex = 0;
-  var lastPairKey = "";
+  var lastRoundKey = "";
   var answered = false;
   var heard = false;
   var trialTapUsed = false;
@@ -256,13 +260,28 @@
     return copy;
   }
 
-  function drawPair() {
-    if (bag.length < 2) bag = shuffled(pool);
-    return [bag.shift(), bag.shift()];
+  function drawCards(count) {
+    var picked = [];
+    var usedEnglish = {};
+    var guard = 0;
+
+    while (picked.length < count && guard < pool.length * 8) {
+      if (!bag.length) bag = shuffled(pool);
+      var item = bag.shift();
+      guard += 1;
+
+      /* Never put the same English word on two cards in one round
+         (food 橙 and colour 橙色 are both “orange”). */
+      if (usedEnglish[item.english]) continue;
+      usedEnglish[item.english] = true;
+      picked.push(item);
+    }
+
+    return picked;
   }
 
-  function pairKey(pair) {
-    return pair
+  function roundKey(list) {
+    return list
       .map(function (item) {
         return item.char;
       })
@@ -270,17 +289,18 @@
       .join("|");
   }
 
-  function pickPair() {
-    var pair = drawPair();
+  function pickRound(count) {
+    var round = drawCards(count);
     var tries = 0;
-    /* Avoid repeating the previous pair, and avoid two cards with the same
-       English word (food 橙 and colour 橙色 are both “orange”). */
-    while ((pairKey(pair) === lastPairKey || pair[0].english === pair[1].english) && tries < 12) {
-      pair = drawPair();
+
+    /* Avoid repeating the exact previous round. */
+    while (round.length === count && roundKey(round) === lastRoundKey && tries < 12) {
+      round = drawCards(count);
       tries += 1;
     }
-    lastPairKey = pairKey(pair);
-    return pair;
+
+    lastRoundKey = roundKey(round);
+    return round;
   }
 
   function buildCard(item, slot) {
@@ -374,13 +394,16 @@
     heard = false;
     trialTapUsed = false;
 
-    cards = pickPair();
-    targetIndex = Math.random() < 0.5 ? 0 : 1;
+    cards = pickRound(cardCount);
+    targetIndex = Math.floor(Math.random() * cards.length);
 
     board.innerHTML = "";
-    board.appendChild(buildCard(cards[0], 0));
-    board.appendChild(buildCard(cards[1], 1));
+    cards.forEach(function (item, i) {
+      board.appendChild(buildCard(item, i));
+    });
+    board.setAttribute("data-count", String(cards.length));
     board.setAttribute("data-target", String(targetIndex));
+    if (main) main.setAttribute("data-count", String(cards.length));
 
     feedback.className = "pick-feedback";
     feedback.textContent = "Listen, then tap the word that matches.";
@@ -397,7 +420,7 @@
   }
 
   function choose(slot) {
-    if (!cards.length) return;
+    if (!cards.length || slot < 0 || slot >= cards.length) return;
 
     /* After the round is answered, tapping a card replays that card's word,
        so the child can compare both. */
@@ -455,6 +478,26 @@
 
   /* ---------- Interaction ---------- */
 
+  function paintCount() {
+    Array.prototype.forEach.call(countBtns, function (btn) {
+      var n = Number(btn.getAttribute("data-count"));
+      btn.setAttribute("aria-pressed", n === cardCount ? "true" : "false");
+    });
+  }
+
+  function setCardCount(next) {
+    if (CARD_COUNTS.indexOf(next) === -1 || next === cardCount) return;
+    cardCount = next;
+    paintCount();
+    renderRound();
+  }
+
+  Array.prototype.forEach.call(countBtns, function (btn) {
+    btn.addEventListener("click", function () {
+      setCardCount(Number(btn.getAttribute("data-count")));
+    });
+  });
+
   newPairBtn.addEventListener("click", renderRound);
 
   hearBtn.addEventListener("click", function () {
@@ -467,7 +510,7 @@
     /* The focused card already handled Enter/Space to pick an answer. */
     if (event.defaultPrevented) return;
 
-    if (event.key === "1" || event.key === "2") {
+    if (/^[1-5]$/.test(event.key) && Number(event.key) <= cards.length) {
       event.preventDefault();
       choose(Number(event.key) - 1);
     } else if (event.key === "h" || event.key === "H") {
@@ -492,5 +535,6 @@
     { once: true }
   );
 
+  paintCount();
   renderRound();
 })();

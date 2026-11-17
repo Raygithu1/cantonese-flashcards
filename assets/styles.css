@@ -1939,6 +1939,72 @@ kbd {
   color: var(--ink-soft);
 }
 
+/* How many cards this round: 2, 3, 4 or 5. */
+.pick-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: fit-content;
+  margin: 0 auto 14px;
+  padding: 5px;
+  border: 2.5px solid rgba(45, 42, 50, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.8);
+}
+
+.pick-count__label {
+  padding: 0 8px 0 7px;
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pick-count__btn {
+  min-width: 44px;
+  min-height: 42px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--ink-soft);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.pick-count__btn:hover {
+  background: rgba(45, 42, 50, 0.07);
+}
+
+.pick-count__btn[aria-pressed="true"] {
+  background: var(--teal);
+  color: #fff;
+  box-shadow: 0 3px 0 rgba(45, 42, 50, 0.18);
+}
+
+.pick-count__btn[aria-pressed="true"]:hover {
+  background: var(--teal-dark);
+}
+
+.pick-count__btn[aria-pressed="true"]:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(45, 42, 50, 0.18);
+}
+
+.pick-count__btn:focus-visible {
+  outline: 3px solid var(--teal-dark);
+  outline-offset: 2px;
+}
+
 .pick-hear {
   min-height: 74px;
   margin-bottom: 18px;
@@ -1949,12 +2015,39 @@ kbd {
 }
 
 .pick-board {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(12px, 2.4vw, 20px);
+  --pick-cols: 2;
+  --pick-gap: clamp(12px, 2.4vw, 20px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--pick-gap);
+}
+
+.pick-board[data-count="3"] {
+  --pick-cols: 3;
+}
+
+.pick-board[data-count="4"] {
+  --pick-cols: 4;
+}
+
+.pick-board[data-count="5"] {
+  --pick-cols: 5;
+}
+
+/* Wider rounds get more room on big screens so the English stays large. */
+.pick-main[data-count="4"] {
+  width: min(1000px, calc(100% - 36px));
+}
+
+.pick-main[data-count="5"] {
+  width: min(1120px, calc(100% - 36px));
 }
 
 .pick-card {
+  flex: 0 1 calc(
+    (100% - (var(--pick-cols) - 1) * var(--pick-gap)) / var(--pick-cols)
+  );
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -2232,6 +2325,20 @@ kbd {
     min-height: 250px;
   }
 
+  /* Narrower screens keep four or five cards in a cosy 2x2 or 3+2 grid. */
+  .pick-main[data-count="4"],
+  .pick-main[data-count="5"] {
+    width: calc(100% - 32px);
+  }
+
+  .pick-board[data-count="4"] {
+    --pick-cols: 2;
+  }
+
+  .pick-board[data-count="5"] {
+    --pick-cols: 3;
+  }
+
   .how__inner {
     grid-template-columns: 1fr;
   }
@@ -2442,6 +2549,12 @@ kbd {
     width: 100%;
   }
 
+  .pick-main[data-count="3"],
+  .pick-main[data-count="4"],
+  .pick-main[data-count="5"] {
+    width: calc(100% - 32px);
+  }
+
   .pick-main {
     width: calc(100% - 32px);
     padding-bottom: calc(32px + env(safe-area-inset-bottom));
@@ -2580,6 +2693,22 @@ kbd {
 
   .pick-board {
     gap: 10px;
+  }
+
+  .pick-board[data-count="3"],
+  .pick-board[data-count="4"],
+  .pick-board[data-count="5"] {
+    --pick-cols: 2;
+  }
+
+  .pick-count {
+    margin-bottom: 10px;
+    padding: 4px;
+  }
+
+  .pick-count__btn {
+    min-width: 42px;
+    min-height: 40px;
   }
 
   .pick-card__caption {
@@ -2780,6 +2909,32 @@ kbd {
     padding-bottom: calc(16px + env(safe-area-inset-bottom));
   }
 
+  .pick-main[data-count="4"] {
+    width: min(1000px, calc(100% - 36px));
+  }
+
+  .pick-main[data-count="5"] {
+    width: min(1120px, calc(100% - 36px));
+  }
+
+  .pick-board[data-count="4"] {
+    --pick-cols: 4;
+  }
+
+  .pick-board[data-count="5"] {
+    --pick-cols: 5;
+  }
+
+  .pick-count {
+    margin-bottom: 8px;
+    padding: 4px;
+  }
+
+  .pick-count__btn {
+    min-width: 40px;
+    min-height: 36px;
+  }
+
   .pick-intro {
     margin-bottom: 8px;
   }
@@ -2841,6 +2996,22 @@ kbd {
 
   .pick-footnote {
     display: none;
+  }
+}
+
+/* Short and narrow windows: wrap into rows rather than shrink the words. */
+@media (max-height: 800px) and (min-width: 561px) and (max-width: 720px) {
+  .pick-main[data-count="4"],
+  .pick-main[data-count="5"] {
+    width: calc(100% - 32px);
+  }
+
+  .pick-board[data-count="4"] {
+    --pick-cols: 2;
+  }
+
+  .pick-board[data-count="5"] {
+    --pick-cols: 3;
   }
 }
 
