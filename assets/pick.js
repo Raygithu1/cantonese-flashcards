@@ -5,20 +5,40 @@
   var decks = window.__GONG_GONG_DECKS || [];
   var FALLBACK_TILES = ["#ff6b5b", "#ffb020", "#28b5a6", "#9b7ede", "#e2557f", "#4f8fe8"];
   var pool = [];
+  var pools = {};
 
   decks.forEach(function (deck) {
-    (deck.items || []).forEach(function (item, i) {
-      if (!item.img || !item.char || !item.english) return;
+    var deckPool = [];
 
-      var slug = item.slug !== undefined && item.slug !== null ? String(item.slug) : String(i);
-      pool.push({
+    (deck.items || []).forEach(function (item, i) {
+      /* Number cards are drawn with dots rather than pictures. Give the game
+         its own small card image without changing the numbers deck page. */
+      var img = item.img;
+      if (!img && item.n !== undefined && item.n !== null) {
+        img = "assets/numbers/" + item.n + ".svg";
+      }
+      if (!img || !item.char || !item.english) return;
+
+      var slug =
+        item.slug !== undefined && item.slug !== null
+          ? String(item.slug)
+          : item.n !== undefined && item.n !== null
+            ? String(item.n)
+            : String(i);
+
+      var entry = {
         char: item.char,
         english: item.english,
-        img: item.img,
+        img: img,
         audioSrc: item.audio || (deck.audioBase || "assets/audio/") + slug + ".m4a",
-        tile: deck.palette ? deck.palette[i % deck.palette.length] : FALLBACK_TILES[i % FALLBACK_TILES.length]
-      });
+        tile: deck.palette ? deck.palette[i % deck.palette.length] : FALLBACK_TILES[i % FALLBACK_TILES.length],
+        deck: deck.id
+      };
+      deckPool.push(entry);
+      pool.push(entry);
     });
+
+    if (deckPool.length >= 2) pools[deck.id] = deckPool;
   });
 
   if (pool.length < 2) return;
@@ -30,8 +50,10 @@
   var newPairBtn = document.getElementById("newPairBtn");
   var voiceNote = document.getElementById("voiceNote");
   var countBtns = document.querySelectorAll(".pick-count__btn");
+  var deckSelect = document.getElementById("deckSelect");
 
   var CARD_COUNTS = [2, 3, 4, 5];
+  var activeDeck = deckSelect && pools[deckSelect.value] ? deckSelect.value : "mixed";
   var cardCount = 2;
   var bag = [];
   var cards = [];
@@ -260,13 +282,18 @@
     return copy;
   }
 
+  function deckPool() {
+    return activeDeck === "mixed" ? pool : pools[activeDeck] || pool;
+  }
+
   function drawCards(count) {
     var picked = [];
     var usedEnglish = {};
     var guard = 0;
+    var source = deckPool();
 
-    while (picked.length < count && guard < pool.length * 8) {
-      if (!bag.length) bag = shuffled(pool);
+    while (picked.length < count && guard < source.length * 8) {
+      if (!bag.length) bag = shuffled(source);
       var item = bag.shift();
       guard += 1;
 
@@ -403,6 +430,7 @@
     });
     board.setAttribute("data-count", String(cards.length));
     board.setAttribute("data-target", String(targetIndex));
+    board.setAttribute("data-deck", activeDeck);
     if (main) main.setAttribute("data-count", String(cards.length));
 
     feedback.className = "pick-feedback";
@@ -497,6 +525,21 @@
       setCardCount(Number(btn.getAttribute("data-count")));
     });
   });
+
+  function setDeck(value) {
+    if (value === activeDeck) return;
+    if (value !== "mixed" && !pools[value]) return;
+    activeDeck = value;
+    bag = [];
+    renderRound();
+  }
+
+  if (deckSelect) {
+    if (!pools[deckSelect.value]) deckSelect.value = "mixed";
+    deckSelect.addEventListener("change", function () {
+      setDeck(deckSelect.value);
+    });
+  }
 
   newPairBtn.addEventListener("click", renderRound);
 
