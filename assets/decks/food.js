@@ -132,6 +132,33 @@ window.GONG_GONG_DECK = {
       english: "milk",
       img: "assets/food/milk.svg",
       hint: "“Ngow” like “now” with a soft ng, then “nai”."
+    },
+    {
+      slug: "water",
+      char: "水",
+      jyutping: "seoi2",
+      sounds: "sooy",
+      english: "water",
+      img: "assets/food/water.svg",
+      hint: "Say “soo” with a tiny “ee” at the end."
+    },
+    {
+      slug: "orange-juice",
+      char: "橙汁",
+      jyutping: "caang2 zap1",
+      sounds: "chaang jap",
+      english: "orange juice",
+      img: "assets/food/orange-juice.svg",
+      hint: "“Chaang” (orange) plus “jap” (juice)."
+    },
+    {
+      slug: "apple-juice",
+      char: "蘋果汁",
+      jyutping: "ping4 gwo2 zap1",
+      sounds: "ping gwaw jap",
+      english: "apple juice",
+      img: "assets/food/apple-juice.svg",
+      hint: "“Ping gwaw” (apple) plus “jap” (juice)."
     }
   ]
 };
