@@ -10,7 +10,7 @@ Playful Cantonese flash cards for toddlers — big tap targets, friendly type, a
 - **Numbers 一–十** — ten counting cards with chunky count-along friends.
 - **Animals 動物** — twelve friendly animals, from 貓 (cat) to 象 (elephant).
 - **Vehicles 交通工具** — twelve things that go, including cars, trucks, fire engines and ambulances.
-- **Food 食物** — twelve fruits and vegetables, from 蘋果 (apple) to 薯仔 (potato).
+- **Food 食物** — fourteen first foods, from 蘋果 (apple) to 牛奶 (milk), including bread, fruit and vegetables.
 - **Colours 顏色** — twelve bright colours, from 紅色 (red) to 金色 (gold).
 - **My body 身體** — twelve first body words, from 頭 (head) to 腦 (brain).
 - **Family 家人** — twelve first family words, from 媽媽 (mum) to 姨姨 (auntie).

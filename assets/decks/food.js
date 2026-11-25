@@ -114,6 +114,24 @@ window.GONG_GONG_DECK = {
       english: "potato",
       img: "assets/food/potato.svg",
       hint: "Like “sue” plus “jai”."
+    },
+    {
+      slug: "bread",
+      char: "麵包",
+      jyutping: "min6 baau1",
+      sounds: "min baau",
+      english: "bread",
+      img: "assets/food/bread.svg",
+      hint: "“Min” like “mean”, then “baau”."
+    },
+    {
+      slug: "milk",
+      char: "牛奶",
+      jyutping: "ngau4 naai5",
+      sounds: "ngow nai",
+      english: "milk",
+      img: "assets/food/milk.svg",
+      hint: "“Ngow” like “now” with a soft ng, then “nai”."
     }
   ]
 };
